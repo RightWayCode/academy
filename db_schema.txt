@@ -1,0 +1,232 @@
+-- ================================
+-- COLLEGES
+-- ================================
+CREATE TABLE college (
+    college_id INT AUTO_INCREMENT PRIMARY KEY,
+    college_name VARCHAR(150) NOT NULL,
+    address TEXT,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- ================================
+-- COURSES
+-- ================================
+CREATE TABLE courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    college_id INT NOT NULL,
+    course_name VARCHAR(150) NOT NULL,
+    duration_years INT NOT NULL,
+    semesters INT NOT NULL,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (college_id) REFERENCES college(college_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ================================
+-- SERVICES (linked to course)
+-- ================================
+CREATE TABLE services (
+    service_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    service_name VARCHAR(150) NOT NULL,
+    description TEXT,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ================================
+-- PRODUCTS (course notes / videos)
+-- ================================
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    service_id INT NOT NULL,
+    semester VARCHAR(10) NOT NULL,
+    product_name VARCHAR(200) NOT NULL,
+    type ENUM('PDF','Video','admission','Other') DEFAULT 'PDF',
+    price DECIMAL(10,2) NOT NULL,
+    file_path VARCHAR(255),
+    summary VARCHAR(255),
+    download_limit INT DEFAULT 3,
+    download_expiry_days INT DEFAULT 30,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (service_id) REFERENCES services(service_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ================================
+-- CUSTOMERS
+-- ================================
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    mobile VARCHAR(20) NOT NULL,
+    remarks TEXT,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- ================================
+-- ORDERS
+-- ================================
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    processing_fee DECIMAL(10,2) DEFAULT 0,
+    total DECIMAL(10,2) NOT NULL,
+    status ENUM('pending','paid','failed','refunded') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ================================
+-- ORDER ITEMS
+-- ================================
+CREATE TABLE order_items (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    download_times INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+        ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- ================================
+-- PAYMENTS
+-- ================================
+CREATE TABLE payments (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    transaction_id VARCHAR(200),
+    amount DECIMAL(10,2) NOT NULL,
+    status ENUM('success','failed','processing') DEFAULT 'processing',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ================================
+-- BLOG CATEGORY
+-- ================================
+CREATE TABLE blog_category (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(120) NOT NULL,
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- ================================
+-- BLOGS
+-- ================================
+CREATE TABLE blogs (
+    blog_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT,
+    title VARCHAR(200) NOT NULL,
+    content TEXT NOT NULL,
+    author VARCHAR(120),
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES blog_category(category_id)
+        ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE contacts (
+    contact_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    phone VARCHAR(20),
+    subject VARCHAR(255),
+    message TEXT,
+    
+    status ENUM('pending', 'in_progress', 'resolved', 'closed') 
+           DEFAULT 'pending',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+                ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+-- admins
+CREATE TABLE roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(100) NOT NULL UNIQUE,
+    status ENUM('active','inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE admins (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    
+    role_id INT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+
+    status ENUM('active', 'inactive', 'blocked') DEFAULT 'active',
+
+    last_login TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE permissions (
+    permission_id INT AUTO_INCREMENT PRIMARY KEY,
+    permission_key VARCHAR(100) NOT NULL UNIQUE,  -- example: manage_users, delete_orders
+    permission_label VARCHAR(200) NOT NULL,       -- human readable name
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE role_permissions (
+    rp_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_id INT NOT NULL,
+    permission_id INT NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (permission_id) REFERENCES permissions(permission_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE admin_activity_logs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_id INT NOT NULL,
+    
+    action VARCHAR(255) NOT NULL,
+    description TEXT,
+    ip_address VARCHAR(50),
+    user_agent VARCHAR(255),
+    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);

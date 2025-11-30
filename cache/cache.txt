@@ -1,0 +1,82 @@
+function get($route, $view)
+{
+    global $route_data;
+    
+    if ($route_data['is_active'])
+        exit;
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
+        // hole([
+        //     $route_data
+        // ]);
+        if ($route === $route_data['path']) {
+
+            $file_path = __DIR__ . "/../views/$view.php";
+            if (file_exists($file_path)) {
+                require_once $file_path;
+                $route_data['is_active'] = true;
+            } else {
+                error_404();
+            }
+        }
+    }
+}
+
+
+function post($route, $view)
+{
+    global $route_data;
+    if ($route_data['is_active'])
+        exit;
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if ($route === $route_data['path']) {
+            $file_path = __DIR__ . "/../action/$view.php";
+            if (file_exists($file_path)) {
+                require_once $file_path;
+                $route_data['is_active'] = true;
+            } else {
+                error_404();
+            }
+        }
+    }
+}
+
+
+
+function get($route, $view)
+{
+    global $route_data;
+
+    if ($route_data['is_active'])
+        return;
+
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
+
+        $request = trim($route_data['path'], "/");
+        $route = trim($route, "/");
+        $pattern = preg_replace(
+            '/\{([a-zA-Z_]+)\}/',
+            '(?P<$1>[a-zA-Z0-9]+)',
+            $route
+        );
+
+        $pattern = "#^" . $pattern . "$#";
+
+        if (preg_match($pattern, $request, $matches)) {
+
+            foreach ($matches as $key => $val)
+                if (!is_string($key))
+                    unset($matches[$key]);
+
+            $route_data['params'] = $matches;
+
+            $file = __DIR__ . "/../views/$view.php";
+
+            if (file_exists($file)) {
+                require_once $file;
+                $route_data['is_active'] = true;
+            } else {
+                error_404();
+            }
+        }
+    }
+}
