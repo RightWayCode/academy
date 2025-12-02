@@ -9,8 +9,9 @@
         content="Ashish Academy — DU SOL specialists. Admission help, study materials, PYQs, notes and online/offline classes for DU SOL students. Trusted guidance, fast admission, expert tutors." />
     <meta name="keywords"
         content="DU SOL, DU SOL admission, Ashish Academy, DU SOL books, DU SOL notes, DU SOL PYQs, DU SOL classes" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
 
+    <link rel="stylesheet" href="<?= url('/assets/css/style.css') ?>">
     <!-- JSON-LD for Organization -->
     <script type="application/ld+json">
   {
