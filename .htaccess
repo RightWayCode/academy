@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /ashish_acadamy
+RewriteBase /
 
 # its support files
 RewriteCond %{REQUEST_FILENAME} !-f
