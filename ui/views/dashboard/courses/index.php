@@ -1,79 +1,117 @@
 <?php
-// Dummy colleges
-$colleges = [
-    1 => "Delhi Institute of Technology",
-    2 => "Mumbai College of Engineering",
-];
+$colleges_data = findMany(
+    "college",
+    'status=:status AND college_id=:college_id',
+    [
+        'status' => 1,
+        "college_id" => $route_data['params']['college_id']
+    ],
+    ['college_id', 'college_name']
+);
 
-// Dummy courses
-$courses = [
-    ['course_id' => 1, 'course_name' => 'B.Tech Computer Science', 'college_id' => 1, 'duration_years' => 4, 'semesters' => 8, 'status' => 1],
-    ['course_id' => 2, 'course_name' => 'BCA', 'college_id' => 1, 'duration_years' => 3, 'semesters' => 6, 'status' => 1],
-    ['course_id' => 3, 'course_name' => 'Mechanical Engineering', 'college_id' => 2, 'duration_years' => 4, 'semesters' => 8, 'status' => 0],
-];
+$colleges = [];
+foreach ($colleges_data as $data) {
+    $colleges[$data['college_id']] = $data['college_name'];
+}
+
+$courses = findMany(
+    "courses",
+    "college_id=:college_id",
+    ["college_id" => $route_data['params']['college_id']]
+);
 ?>
 
 <div class="p-6">
-    <div class="flex justify-between items-center mb-5">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
         <h1 class="text-2xl font-semibold">Course Management</h1>
 
-        <a href="<?= url("/dashboard") ?>/course/add"
-            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
+        <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/course/add"
+           class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
             + Add New Course
         </a>
     </div>
 
+    <!-- Table Container (Responsive Scroll) -->
     <div class="bg-white shadow rounded-lg overflow-hidden">
 
-        <table class="min-w-full text-left border-collapse">
-            <thead class="bg-gray-100 border-b">
-                <tr>
-                    <th class="px-4 py-2">#</th>
-                    <th class="px-4 py-2">Course Name</th>
-                    <th class="px-4 py-2">College</th>
-                    <th class="px-4 py-2">Duration</th>
-                    <th class="px-4 py-2">Semesters</th>
-                    <th class="px-4 py-2">Status</th>
-                    <th class="px-4 py-2 text-right">Actions</th>
-                </tr>
-            </thead>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-left border-collapse">
+                <thead class="bg-gray-100 border-b text-sm">
+                    <tr>
+                        <th class="px-4 py-3">#</th>
+                        <th class="px-4 py-3">Course Name</th>
+                        <th class="px-4 py-3">College</th>
+                        <th class="px-4 py-3">Duration</th>
+                        <th class="px-4 py-3">Semesters</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 text-right">Actions</th>
+                    </tr>
+                </thead>
 
-            <tbody>
+                <tbody class="text-sm">
 
-                <?php foreach ($courses as $c): ?>
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-2"><?= $c['course_id'] ?></td>
+                <?php if (!empty($courses)): ?>
+                    <?php foreach ($courses as $c): ?>
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="px-4 py-3 font-medium"><?= $c['course_id'] ?></td>
 
-                        <td class="px-4 py-2 font-medium"><?= $c['course_name'] ?></td>
+                            <td class="px-4 py-3"><?= htmlspecialchars($c['course_name']) ?></td>
 
-                        <td class="px-4 py-2"><?= $colleges[$c['college_id']] ?></td>
+                            <td class="px-4 py-3"><?= $colleges[$c['college_id']] ?? "N/A" ?></td>
 
-                        <td class="px-4 py-2"><?= $c['duration_years'] ?> Years</td>
+                            <td class="px-4 py-3"><?= $c['duration_years'] ?> Years</td>
 
-                        <td class="px-4 py-2"><?= $c['semesters'] ?></td>
+                            <td class="px-4 py-3"><?= $c['semesters'] ?></td>
 
-                        <td class="px-4 py-2">
-                            <?= $c['status'] ?
-                                '<span class="text-green-600 font-semibold">Active</span>' :
-                                '<span class="text-red-600 font-semibold">Inactive</span>' ?>
-                        </td>
+                            <td class="px-4 py-3">
+                                <?php if ($c['status']): ?>
+                                    <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Active</span>
+                                <?php else: ?>
+                                    <span class="px-2 py-1 text-xs bg-red-100 text-red-700 rounded-full">Inactive</span>
+                                <?php endif; ?>
+                            </td>
 
-                        <td class="px-4 py-2 flex gap-3 justify-end">
-                            <a href="<?= url("/dashboard") ?>/course/view?id=<?= $c['course_id'] ?>"
-                                class="text-blue-600 hover:underline">View</a>
+                            <td class="px-4 py-3">
+                                <div class="flex justify-end gap-3 text-sm">
 
-                            <a href="<?= url("/dashboard") ?>/course/edit?id=<?= $c['course_id'] ?>"
-                                class="text-yellow-600 hover:underline">Edit</a>
+                                    <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $c['course_id'] ?>/services"
+                                       class="text-blue-600 hover:underline">
+                                       Services
+                                    </a>
 
-                            <a href="<?= url("/dashboard") ?>/course/delete?id=<?= $c['course_id'] ?>"
-                                class="text-red-600 hover:underline"
-                                onclick="return confirm('Delete this course?')">Delete</a>
+                                    <a href="<?= url("/dashboard") ?>/course/view?id=<?= $c['course_id'] ?>"
+                                       class="text-blue-600 hover:underline">
+                                       View
+                                    </a>
+
+                                    <a href="<?= url("/dashboard") ?>/course/edit?id=<?= $c['course_id'] ?>"
+                                       class="text-yellow-500 hover:underline">
+                                       Edit
+                                    </a>
+
+                                    <a href="<?= url("/dashboard") ?>/course/delete?id=<?= $c['course_id'] ?>"
+                                       class="text-red-600 hover:underline"
+                                       onclick="return confirm('Delete this course?')">
+                                       Delete
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" class="text-center py-6 text-gray-500">
+                            No courses found.
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
 
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

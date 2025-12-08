@@ -1,4 +1,4 @@
-<?php $url = URL."/dashboard" ?>
+<?php $url = URL . "/dashboard" ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +10,13 @@
 
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="<?= url('/assets/css/style.css') ?>">
 
     <style>
         .sidebar {
             transition: transform 0.3s ease-in-out;
         }
+
         .sidebar-hidden {
             transform: translateX(-100%);
         }
@@ -24,15 +26,13 @@
 <body class="bg-gray-100 overflow-x-hidden">
 
     <!-- Mobile Overlay -->
-    <div id="overlay"
-        class="fixed inset-0 bg-black bg-opacity-40 hidden z-40"
-        onclick="toggleSidebar()">
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-40 hidden z-40" onclick="toggleSidebar()">
     </div>
 
     <!-- Sidebar -->
-    <aside id="sidebar"
-        class="sidebar fixed inset-y-0 left-0 w-64 bg-white shadow-xl z-50 sidebar-hidden md:translate-x-0 md:sidebar md:block">
-
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white shadow-xl z-50 
+           transform transition-transform duration-300 
+           md:translate-x-0 translate-x-0">
         <!-- Logo -->
         <div class="p-6 border-b">
             <h1 class="text-2xl font-bold text-blue-600">Admin Panel</h1>
@@ -43,8 +43,7 @@
         <nav class="p-4 space-y-2 overflow-y-auto h-[calc(100vh-120px)]">
 
             <!-- Dashboard -->
-            <a href="<?= $url ?>/"
-                class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
+            <a href="<?= $url ?>/" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="layout-dashboard" class="w-5"></i> Dashboard
             </a>
 
@@ -54,7 +53,7 @@
                 <i data-lucide="school" class="w-5"></i> Colleges
             </a>
 
-            <a href="<?= $url ?>/courses" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
+            <!-- <a href="<?= $url ?>/courses" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="book-open" class="w-5"></i> Courses
             </a>
 
@@ -64,7 +63,7 @@
 
             <a href="<?= $url ?>/products" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="file-text" class="w-5"></i> Products
-            </a>
+            </a> -->
 
             <p class="section-title">Orders & Customers</p>
 
@@ -82,7 +81,8 @@
 
             <p class="section-title">Content</p>
 
-            <a href="<?= $url ?>/blog-category" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
+            <a href="<?= $url ?>/blog-category"
+                class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="list" class="w-5"></i> Blog Categories
             </a>
 
@@ -104,7 +104,8 @@
                 <i data-lucide="lock" class="w-5"></i> Permissions
             </a>
 
-            <a href="<?= $url ?>/activity-logs" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
+            <a href="<?= $url ?>/activity-logs"
+                class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="history" class="w-5"></i> Activity Logs
             </a>
 
@@ -134,17 +135,16 @@
                 </button>
 
                 <h2 class="text-xl font-semibold text-gray-700">
-                    <?= isset($title) ? $title : 'Dashboard'?>
+                    <?= isset($title) ? $title : 'Dashboard' ?>
                 </h2>
             </div>
 
             <div class="flex items-center gap-3">
                 <span class="text-gray-600 text-sm">
                     <!-- {{ auth()->user()->name ?? 'Admin' }} -->
-                    <?= isset($title) ? $title : 'Admin'?>
+                    <?= isset($title) ? $title : 'Admin' ?>
                 </span>
-                <img src="https://ui-avatars.com/api/?name=Admin"
-                    class="w-9 h-9 rounded-full border">
+                <img src="https://ui-avatars.com/api/?name=Admin" class="w-9 h-9 rounded-full border">
             </div>
         </header>
 
@@ -183,4 +183,5 @@
     </style>
 
 </body>
+
 </html>

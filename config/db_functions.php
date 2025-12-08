@@ -1,7 +1,7 @@
 <?php
 function db_conn() {
     $host = "localhost";
-    $db   = "it_service";
+    $db   = "ashish_acadamy";
     $user = "root";
     $pass = "";
 
@@ -97,8 +97,9 @@ function getPaginatedData($table, $limit, $offset, $orderBy = "id DESC") {
 }
 
 
-function uploadFile($file, $oldPath = '', $uploadDir = '../images') {
+function uploadFile($file, $oldPath = '', $dir = '') {
     // Ensure upload directory exists
+    $uploadDir = __DIR__."/../assets/uploads/$dir";
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }

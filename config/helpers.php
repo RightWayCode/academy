@@ -51,3 +51,7 @@ function url($dir_route)
 {
     echo URL.$dir_route;
 }
+
+function location($path=''){
+    header("Location: ".URL."/$path");
+}

@@ -20,7 +20,7 @@
                 <h5 class="font-semibold text-lg">Books</h5>
                 <p class="mt-2 text-sm text-gray-600">Subject-wise books, and revision packs updated
                     for the current syllabus.</p>
-                <a href="<?= URL . "/du-sol/books" ?>" class="mt-4 inline-block text-orange-600 font-semibold">Download
+                <a href="<?= URL . "/du-sol/books/courses" ?>" class="mt-4 inline-block text-orange-600 font-semibold">Download
                     Books →</a>
             </article>
 
@@ -28,7 +28,7 @@
                 <h5 class="font-semibold text-lg">Classes</h5>
                 <p class="mt-2 text-sm text-gray-600">Regular batches, weekend classes and recorded lessons for flexible
                     learning.</p>
-                <a href="<?= URL . "/du-sol/classes" ?>" class="mt-4 inline-block text-orange-600 font-semibold">View
+                <a href="<?= URL . "/du-sol/classes/courses" ?>" class="mt-4 inline-block text-orange-600 font-semibold">View
                     Classes →</a>
             </article>
 
@@ -37,7 +37,7 @@
                 <p class="mt-2 text-sm text-gray-600">
                     Download the updated DU SOL syllabus for all courses and semesters in one place.
                 </p>
-                <a href="<?= URL . '/du-sol/syllabus' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                <a href="<?= URL . '/du-sol/syllabus/courses' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
                     View Syllabus →
                 </a>
             </article>
@@ -46,7 +46,7 @@
                 <h5 class="font-semibold text-lg">Previous Year Questions (PYQs)</h5>
                 <p class="mt-2 text-sm text-gray-600">Solved PYQs and model answers to improve exam strategy and time
                     management.</p>
-                <a href="<?= URL . "/du-sol/pyqs" ?>" class="mt-4 inline-block text-orange-600 font-semibold">Download
+                <a href="<?= URL . "/du-sol/pyqs/courses" ?>" class="mt-4 inline-block text-orange-600 font-semibold">Download
                     PYQs →</a>
             </article>
 
@@ -55,7 +55,7 @@
                 <p class="mt-2 text-sm text-gray-600">
                     Get high-quality DU SOL notes prepared according to the latest syllabus for easy exam preparation.
                 </p>
-                <a href="<?= URL . '/du-sol/notes' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                <a href="<?= URL . '/du-sol/notes/courses' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
                     View Notes →
                 </a>
             </article>

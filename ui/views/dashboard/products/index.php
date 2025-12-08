@@ -3,25 +3,22 @@
 $course_name = "B.Tech Computer Science";
 $service = ['service_id' => 1, 'service_name' => 'Notes & Study Material'];
 
-// Dummy products
-$products = [
-    ['product_id' => 1, 'product_name' => 'Sem 1 Notes', 'semester' => '1', 'type' => 'PDF', 'price' => 199.00, 'download_limit' => 3, 'download_expiry_days' => 30, 'status' => 1, 'file_path' => '/files/sem1.pdf', 'summary' => 'Introduction to basics'],
-    ['product_id' => 2, 'product_name' => 'Sem 2 Video Lectures', 'semester' => '2', 'type' => 'Video', 'price' => 399.00, 'download_limit' => 2, 'download_expiry_days' => 60, 'status' => 1, 'file_path' => '/files/sem2.mp4', 'summary' => 'Lectures for semester 2'],
-    ['product_id' => 3, 'product_name' => 'Admission Guide', 'semester' => 'N/A', 'type' => 'admission', 'price' => 0.00, 'download_limit' => 1, 'download_expiry_days' => 365, 'status' => 0, 'file_path' => '', 'summary' => 'Admission process guide'],
-];
+$service_data = findMany("services", 'status=:status AND service_id=:service_id', [
+    'status' => 1,
+    "service_id" => $route_data['params']['service_id']
+], ['service_id', 'service_name']);
+$services = [];
+foreach ($service_data as $key => $data) {
+    $services[$data['service_id']] = $data['service_name'];
+}
+$products = findMany('products',"service_id=:service_id",["service_id" => $route_data['params']['service_id']]);
 ?>
 <div class="p-6">
     <div class="flex items-center justify-between mb-5">
         <div>
-            <h1 class="text-2xl font-semibold">Products — <?= htmlspecialchars($service['service_name']) ?></h1>
-            <p class="text-sm text-gray-500">Course: <?= htmlspecialchars($course_name) ?></p>
+            <h1 class="text-2xl font-semibold">Products</h1>
         </div>
-        <!-- <div class="flex gap-3">
-            <a href="<?= url("/dashboard") ?>/product/add?service_id=<?= $service['service_id'] ?>"
-               class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">+ Add Product</a>
-            <a href="service-list.php" class="px-4 py-2 rounded border">← Back to Services</a>
-        </div> -->
-        <a href="<?= url("/dashboard") ?>/product/add"
+        <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $route_data['params']['course_id'] ?>/<?= $route_data['params']['service_id'] ?>/product/add"
             class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
             + Add Product
         </a>
@@ -60,7 +57,8 @@ $products = [
                                 class="text-blue-600 hover:underline">View</a>
                             <a href="<?= url("/dashboard") ?>/product/edit?id=<?= $p['product_id'] ?>"
                                 class="text-yellow-600 hover:underline">Edit</a>
-                            <a href="<?= url("/dashboard") ?>/product/delete?id=<?= $p['product_id'] ?>" class="text-red-600 hover:underline"
+                            <a href="<?= url("/dashboard") ?>/product/delete?id=<?= $p['product_id'] ?>"
+                                class="text-red-600 hover:underline"
                                 onclick="return confirm('Delete this product?')">Delete</a>
                         </td>
                     </tr>

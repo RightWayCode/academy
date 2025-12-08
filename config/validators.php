@@ -16,11 +16,15 @@ $validators = add_validation([
         "5"=>"5",
         "6"=>"6"
     ],
+    "medium" => [
+        "english"=>"English",
+        "hindi"=>"Hindi",
+    ],
     "course" => [
         "ba-program"=>"BA Program",
         "ba-political-science-hons"=>"BA Political Science Hons",
         "ba-english-hons"=>"BA English Hons",
         "bcom-programme"=>"Bcom Program",
         "bcom-hons"=>"Bcom Hons"
-    ]
+    ],
 ]);
