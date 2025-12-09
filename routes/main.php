@@ -1,29 +1,31 @@
 <?php
 layout_start();
-get("/","/index");
-get("/contact","/contact");
-get("/about","/about");
-get("/services","/services");
-get("/courses","/courses");
-get("/privacy","/privacy");
-get("/refund","/refund");
-get("/terms","/terms");
+get("/","/frontend/index");
+get("/contact","/frontend/contact");
+get("/about","/frontend/about");
+get("/cart","/frontend/cart");
+get("/services","/frontend/services");
+get("/courses","/frontend/courses");
+get("/privacy","/frontend/privacy");
+get("/refund","/frontend/refund");
+get("/terms","/frontend/terms");
+
+post("/cart","/frontend/cart");
 
 // dynamic url
-get("/du-sol/courses","pages/dynamic/courses");
-get("/du-sol/{course}/semesters","pages/dynamic/semester");
-get("/du-sol/{course}/semester-{semester}","pages/dynamic/services");
-get("/du-sol/{course}/semester-{semester}/{service}","pages/dynamic/products");
-// get("/du-sol/{course}/semester-{semester}/{subject}/{items}","pages/dynamic/semester/item");
+get("/du-sol","frontend/colleges/index");
+get("/du-sol/{course}","frontend/dynamic/semester");
 
-// non-medium/english
-get("/du-sol/ba-english-hons/semester-{semester}/{service}/{subject}/{products}","pages/products");
-get("/du-sol/bcom-programme/semester-{semester}/{service}/{subject}/{products}","pages/products");
-get("/du-sol/bcom-hons/semester-{semester}/{service}/{subject}/{products}","pages/products");
-// now notes
-get("/du-sol/{course}/semester-{semester}/{service}/{subject}/{medium}","pages/medium");
-get("/du-sol/{course}/semester-{semester}/{service}/{subject}/{medium}/{products}","pages/products");
+// english
+get("/du-sol/ba-english-hons/semester-{semester}","/frontend/dynamic/services_english",['course'=>"ba-english-hons"]);
+get("/du-sol/bcom-programme/semester-{semester}","/frontend/dynamic/services_english",['course'=>"bcom-programme"]);
+get("/du-sol/bcom-hons/semester-{semester}","/frontend/dynamic/services_english",['course'=>"bcom-hons"]);
+// hindi/english
+get("/du-sol/{course}/semester-{semester}","/frontend/dynamic/medium");
+get("/du-sol/{course}/semester-{semester}/{medium}","frontend/dynamic/services");
 
+require __DIR__."/group/services.php";
+require __DIR__."/group/products.php";
 
 // registration 
 get("/du-sol-registration-and-support-service","pages/registration");
@@ -34,28 +36,7 @@ get("/blog/{slug}","pages/blog");
 
 layout_end();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // semester wise breaking support
-// get("/du-sol/books/{course}/semester-{semester}/{subject}/{products}","pages/books");
-// get("/du-sol/notes/{course}/semester-{semester}/{subject}/{products}","pages/notes");
-// get("/du-sol/syllabus/{course}/semester-{semester}/{subject}/{products}","pages/syllabus");
-// get("/du-sol/classes/{course}/semester-{semester}/{subject}/{products}","pages/classes");
-// get("/du-sol/pyqs/{course}/semester-{semester}/{subject}/{products}","pages/pyqs");
+get("/checkout/success","/gateway/checkout/success");
+get("/checkout/failed","/gateway/checkout/failed");
+post("/checkout/verify","/gateway/checkout/verify");
+post("/checkout/process","/gateway/checkout/process");

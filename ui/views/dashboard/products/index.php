@@ -1,24 +1,20 @@
 <?php
-// Dummy context (service & course)
-$course_name = "B.Tech Computer Science";
-$service = ['service_id' => 1, 'service_name' => 'Notes & Study Material'];
-
-$service_data = findMany("services", 'status=:status AND service_id=:service_id', [
+$service_data = findMany("services", 'status=:status', [
     'status' => 1,
-    "service_id" => $route_data['params']['service_id']
 ], ['service_id', 'service_name']);
 $services = [];
 foreach ($service_data as $key => $data) {
     $services[$data['service_id']] = $data['service_name'];
 }
-$products = findMany('products',"service_id=:service_id",["service_id" => $route_data['params']['service_id']]);
+$products = findMany('products',"course_id=:course_id",["course_id" => $route_data['params']['course_id']]);
 ?>
 <div class="p-6">
     <div class="flex items-center justify-between mb-5">
         <div>
             <h1 class="text-2xl font-semibold">Products</h1>
         </div>
-        <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $route_data['params']['course_id'] ?>/<?= $route_data['params']['service_id'] ?>/product/add"
+
+        <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $route_data['params']['course_id'] ?>/product/add"
             class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
             + Add Product
         </a>

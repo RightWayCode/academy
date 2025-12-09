@@ -53,12 +53,12 @@
                 <i data-lucide="school" class="w-5"></i> Colleges
             </a>
 
-            <!-- <a href="<?= $url ?>/courses" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
-                <i data-lucide="book-open" class="w-5"></i> Courses
-            </a>
-
             <a href="<?= $url ?>/services" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
                 <i data-lucide="settings" class="w-5"></i> Services
+            </a>
+            
+            <!-- <a href="<?= $url ?>/courses" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">
+                <i data-lucide="book-open" class="w-5"></i> Courses
             </a>
 
             <a href="<?= $url ?>/products" class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50">

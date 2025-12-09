@@ -2,6 +2,7 @@
 // define("URL", "http://localhost/ashish_acadamy");
 define("URL", "http://localhost:3000");
 $validators = [];
+define("cookie_expire_date",60);
 // production
 // $route_data = $_SERVER['REQUEST_URI'];
 // debug

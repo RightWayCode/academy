@@ -1,6 +1,6 @@
 <?php
 $colleges_data = findMany(
-    "college",
+    "colleges",
     'status=:status AND college_id=:college_id',
     [
         'status' => 1,
@@ -44,7 +44,7 @@ $courses = findMany(
                         <th class="px-4 py-3">Course Name</th>
                         <th class="px-4 py-3">College</th>
                         <th class="px-4 py-3">Duration</th>
-                        <th class="px-4 py-3">Semesters</th>
+                        <!-- <th class="px-4 py-3">Semesters</th> -->
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3 text-right">Actions</th>
                     </tr>
@@ -63,7 +63,7 @@ $courses = findMany(
 
                             <td class="px-4 py-3"><?= $c['duration_years'] ?> Years</td>
 
-                            <td class="px-4 py-3"><?= $c['semesters'] ?></td>
+                            <!-- <td class="px-4 py-3"><= $c['semesters'] ?></td> -->
 
                             <td class="px-4 py-3">
                                 <?php if ($c['status']): ?>
@@ -76,9 +76,9 @@ $courses = findMany(
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-3 text-sm">
 
-                                    <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $c['course_id'] ?>/services"
+                                    <a href="<?= url("/dashboard") ?>/<?= $route_data['params']['college_id'] ?>/<?= $c['course_id'] ?>/products"
                                        class="text-blue-600 hover:underline">
-                                       Services
+                                       Products
                                     </a>
 
                                     <a href="<?= url("/dashboard") ?>/course/view?id=<?= $c['course_id'] ?>"

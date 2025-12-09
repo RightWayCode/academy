@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="<?= url('/assets/css/style.css') ?>">
     <!-- JSON-LD for Organization -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -65,16 +67,14 @@
             <nav class="hidden md:flex items-center gap-6 font-medium text-gray-700">
                 <a href="<?= url("/") ?>" class="hover:text-blue-600">Home</a>
                 <a href="<?= url("/about") ?>" class="hover:text-blue-600">About</a>
-                <a href="<?= url("/services") ?>" class="hover:text-blue-600">Services</a>
+                <!-- <a href="<?= url('/admission') ?>" class="hover:text-blue-600">Admission</a> -->
                 <a href="<?= url('/blogs') ?>" class="hover:text-blue-600">Blogs</a>
-                <!-- <a href="<?= url("/courses") ?>" class="hover:text-blue-600">Courses</a>
-        <a href="<?= url("/testimonials") ?>" class="hover:text-blue-600">Testimonials</a> -->
                 <a href="<?= url("/contact") ?>" class="hover:text-blue-600">Contact</a>
             </nav>
 
             <!-- contact / mobile -->
             <div class="flex items-center gap-3">
-                <div class="hidden md:flex flex-col text-right text-xs">
+                <!-- <div class="hidden md:flex flex-col text-right text-xs">
                     <span class="text-gray-700 font-semibold">+91 9717572295</span>
                     <a href="mailto:support@ashishtiwariacademy.in"
                         class="text-gray-500">support@ashishtiwariacademy.in</a>
@@ -83,6 +83,21 @@
                 <a href="#contact"
                     class="ml-3 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md font-semibold">
                     Consult Now
+                </a> -->
+
+                <a href="cart.php" class="relative inline-block">
+
+                    <!-- Cart Icon (Font Awesome Latest) -->
+                    <i class="fa-solid fa-bag-shopping text-3xl text-gray-800"></i>
+
+                    <!-- Cart Count Badge -->
+                    <span class="absolute -top-2 -right-2 bg-red-600 text-white 
+                 text-xs font-bold px-2 py-0.5 rounded-full shadow-lg">
+
+                        <?= isset($_COOKIE['cart_items']) ? count(json_decode($_COOKIE['cart_items'], true)) : 0 ?>
+
+                    </span>
+
                 </a>
 
                 <!-- mobile menu button -->
@@ -120,8 +135,6 @@
                 <ul class="mt-3 space-y-2 text-sm">
                     <li><a href="<?= URL ?>/about" class="hover:text-white">About Us</a></li>
                     <li><a href="<?= URL ?>/contact" class="hover:text-white">Contact Us</a></li>
-                    <!-- <li><a href="<?= URL ?>/courses" class="hover:text-white">Courses</a></li> -->
-                    <!-- <li><a href="<?= URL ?>/testimonials" class="hover:text-white">Testimonials</a></li> -->
                 </ul>
             </div>
 

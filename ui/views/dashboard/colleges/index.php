@@ -1,5 +1,5 @@
 <?php
-$colleges = findMany("college");
+$colleges = findMany("colleges");
 ?>
 
 <div class="p-4 md:p-6">

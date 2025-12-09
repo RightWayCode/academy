@@ -1,12 +1,10 @@
 <?php validate();
 // hole($route_data);
-$title = $route_data['page_info']['service'];
-$service = $route_data['params']['service'];
 $course = $route_data['params']['course'];
 
 ?>
 <?= component("banner", [
-    "title" => $title,
+    "title" => "Products",
 ]) ?>
 
 <?= component("course_list", [

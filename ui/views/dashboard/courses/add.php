@@ -1,13 +1,13 @@
 <?php
 
-$colleges_data = findMany("college", 'status=:status AND college_id=:college_id', [
+$colleges_data = findMany("colleges", 'status=:status AND college_id=:college_id', [
     'status' => 1,
-    "college_id"=> $route_data['params']['college_id']
-], ['college_id','college_name']);
+    "college_id" => $route_data['params']['college_id']
+], ['college_id', 'college_name']);
 
 $colleges = [];
 foreach ($colleges_data as $key => $data) {
-    $colleges[$data['college_id']]=$data['college_name'];
+    $colleges[$data['college_id']] = $data['college_name'];
 }
 
 ?>
@@ -18,16 +18,7 @@ foreach ($colleges_data as $key => $data) {
 
     <form action="" method="POST" class="space-y-5">
 
-        <!-- Select College -->
-        <div>
-            <label class="block mb-1 font-medium">Select College</label>
-            <select name="college_id" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
-                <?php foreach ($colleges as $id => $name): ?>
-                    <option value="<?= $id ?>"><?= $name ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
+        <input type="hidden" name="college_id" value="<?= $route_data['params']['college_id'] ?>" id="">
         <!-- Course Name -->
         <div>
             <label class="block mb-1 font-medium">Course Name</label>
@@ -36,21 +27,19 @@ foreach ($colleges_data as $key => $data) {
                 placeholder="Enter course name">
         </div>
 
-        <!-- Duration & Semesters -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class="block mb-1 font-medium">Duration (Years)</label>
-                <input type="number" name="duration_years"
-                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" min="1" max="6"
-                    placeholder="e.g. 3">
-            </div>
+        <!-- Slug -->
+        <div>
+            <label class="block mb-1 font-medium">Slug</label>
+            <input type="text" name="slug" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                placeholder="auto-generated or custom slug">
+        </div>
 
-            <div>
-                <label class="block mb-1 font-medium">Semesters</label>
-                <input type="number" name="semesters"
-                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" min="1" max="12"
-                    placeholder="e.g. 6">
-            </div>
+        <!-- Duration -->
+        <div>
+            <label class="block mb-1 font-medium">Duration (Years)</label>
+            <input type="number" name="duration_years"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" min="1" max="6"
+                value="3">
         </div>
 
         <!-- Status -->

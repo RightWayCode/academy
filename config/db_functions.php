@@ -104,6 +104,8 @@ function uploadFile($file, $oldPath = '', $dir = '') {
         mkdir($uploadDir, 0777, true);
     }
 
+    $save='';
+
     // File details
     $fileName = basename($file['name']);
     $targetPath = rtrim($uploadDir, '/') . "/" . $fileName;
@@ -120,12 +122,13 @@ function uploadFile($file, $oldPath = '', $dir = '') {
     $counter = 1;
     while (file_exists($targetPath)) {
         $targetPath = rtrim($uploadDir, '/') . "/" . $fileBase . "_" . $counter . "." . $fileExt;
+        $save = $dir."/". $fileBase . "_" . $counter . "." . $fileExt;
         $counter++;
     }
 
     // Move uploaded file
     if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-        return $targetPath; // return path for saving in DB
+        return $save; // return path for saving in DB
     } else {
         return false;
     }

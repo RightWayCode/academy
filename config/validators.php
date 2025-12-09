@@ -21,7 +21,7 @@ $validators = add_validation([
         "hindi"=>"Hindi",
     ],
     "course" => [
-        "ba-program"=>"BA Program",
+        "ba-programme"=>"BA Programme",
         "ba-political-science-hons"=>"BA Political Science Hons",
         "ba-english-hons"=>"BA English Hons",
         "bcom-programme"=>"Bcom Program",

@@ -38,7 +38,7 @@ function request_handle()
     }
 }
 
-function get($route, $view)
+function get($route, $view, $data = [])
 {
     global $route_data;
 
@@ -109,32 +109,43 @@ function post($route, $view)
     $request = trim($route_data['path'], "/");
     $route = trim($route, "/");
 
-    // Convert {param} to strict REGEX (only letters+numbers)
-    $pattern = preg_replace(
-        '/\{([a-zA-Z_]+)\}/',
-        '(?P<$1>[a-zA-Z0-9]+)',
+    $regex = preg_replace_callback(
+        '/\{([a-zA-Z_]+)\}([\-\/_])?/',  // match {param}+optional separator
+        function ($m) {
+            $param = $m[1];
+            $sep = $m[2] ?? null;
+
+            // 1) Slash-based param: flexible
+            if ($sep === "/") {
+                return '(?P<' . $param . '>[^\/]+)\/';
+            }
+
+            // 2) Hyphen or underscore based param: strict
+            if ($sep === "-" || $sep === "_") {
+                // exact one separator:
+                return '(?P<' . $param . '>[a-zA-Z0-9]+)' . $sep;
+            }
+
+            // last param of pattern
+            return '(?P<' . $param . '>[a-zA-Z0-9\-_]+)';
+        },
         $route
     );
 
-    // Complete strict regex (no extra segments allowed)
-    $pattern = "#^" . $pattern . "$#";
+    $regex = "#^" . $regex . "$#";
 
-    // Match URL to pattern
-    if (preg_match($pattern, $request, $matches)) {
+    if (preg_match($regex, $request, $matches)) {
 
-        // Clean numeric indexes
         foreach ($matches as $key => $val)
             if (!is_string($key))
                 unset($matches[$key]);
 
-        // Save dynamic parameters
         $route_data['params'] = $matches;
 
-        // Load action file
-        $file_path = __DIR__ . "/../backend/$view.php";
+        $file = __DIR__ . "/../backend/$view.php";
 
-        if (file_exists($file_path)) {
-            require_once $file_path;
+        if (file_exists($file)) {
+            require_once $file;
             $route_data['is_active'] = true;
         } else {
             http_response_code(404);

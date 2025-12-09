@@ -1,34 +1,32 @@
 <?php validate();
 // hole($route_data);
-$title = $route_data['page_info']['service'];
-$service = $route_data['params']['service'];
-$course = $route_data['params']['course'];
+$course = $data['course'];
 $semester = $route_data['params']['semester'];
 
 ?>
 <?= component("banner", [
-    "title" => $title,
+    "title" => "Services",
 ]) ?>
 
 <?= component("course_list", [
     [
-        "title"=>"Semester 1",
+        "title"=>"Notes",
+        "url" => URL . "/du-sol/$course/semester-$semester/notes",
+    ],
+    [
+        "title"=>"Books",
         "url" => URL . "/du-sol/$course/semester-$semester/books",
     ],
     [
-        "title"=>"Semester 1",
+        "title"=>"Classes",
         "url" => URL . "/du-sol/$course/semester-$semester/classes",
     ],
     [
-        "title"=>"Semester 1",
+        "title"=>"Syllabus",
         "url" => URL . "/du-sol/$course/semester-$semester/syllabus",
     ],
     [
-        "title"=>"Semester 1",
+        "title"=>"PYQs",
         "url" => URL . "/du-sol/$course/semester-$semester/pyqs",
-    ],
-    [
-        "title"=>"Semester 1",
-        "url" => URL . "/du-sol/$course/semester-$semester/notes",
     ],
 ]) ?>

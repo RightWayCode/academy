@@ -2,9 +2,8 @@
 $service_id = $_GET['service_id'] ?? 1;
 $service_name = "Notes & Study Material"; 
 
-$service_data = findMany("services", 'status=:status AND service_id=:service_id', [
-    'status' => 1,
-    "service_id" => $route_data['params']['service_id']
+$service_data = findMany("services", 'status=:status', [
+    'status' => 1
 ], ['service_id', 'service_name']);
 $services = [];
 foreach ($service_data as $key => $data) {
@@ -15,21 +14,37 @@ foreach ($service_data as $key => $data) {
     <h1 class="text-2xl font-semibold mb-5">Add Product — <?= htmlspecialchars($service_name) ?></h1>
 
     <form action="" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow space-y-4">
+        <input type="hidden" name="course_id" value="<?= $route_data['params']['course_id'] ?>" id="">
 
-        <!-- Select College -->
+        <!-- Select College (Service) -->
         <div>
-            <label class="block mb-1 font-medium">Select College</label>
+            <label class="block mb-1 font-medium">Select Service</label>
             <select name="service_id" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
                 <?php foreach ($services as $id => $name): ?>
                     <option value="<?= $id ?>"><?= $name ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
+        <div>
+            <label class="block mb-1 font-medium">Select Service</label>
+            <select name="medium" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500">
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
+            </select>
+        </div>
 
+        <!-- Product Name -->
         <div>
             <label class="block font-medium mb-1">Product Name</label>
             <input type="text" name="product_name" required class="w-full px-3 py-2 border rounded"
                 placeholder="E.g. Semester 1 Notes">
+        </div>
+
+        <!-- Slug Field -->
+        <div>
+            <label class="block font-medium mb-1">Slug</label>
+            <input type="text" name="slug" required class="w-full px-3 py-2 border rounded"
+                placeholder="auto-generated or custom slug">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
@@ -45,7 +60,7 @@ foreach ($service_data as $key => $data) {
 
             <div>
                 <label class="block font-medium mb-1">Semester</label>
-                <input type="text" name="semester" class="w-full px-3 py-2 border rounded"
+                <input type="text" name="semester" required class="w-full px-3 py-2 border rounded"
                     placeholder="1 or Sem-1 or N/A">
             </div>
         </div>
@@ -53,27 +68,27 @@ foreach ($service_data as $key => $data) {
         <div class="grid grid-cols-3 gap-4">
             <div>
                 <label class="block font-medium mb-1">Price (₹)</label>
-                <input type="number" step="0.01" name="price" class="w-full px-3 py-2 border rounded" value="0.00">
+                <input type="number" step="0.01" required name="price" class="w-full px-3 py-2 border rounded" value="0.00">
             </div>
             <div>
                 <label class="block font-medium mb-1">Download Limit</label>
-                <input type="number" name="download_limit" class="w-full px-3 py-2 border rounded" value="3" min="0">
+                <input type="number" required name="download_limit" class="w-full px-3 py-2 border rounded" value="3" min="0">
             </div>
             <div>
                 <label class="block font-medium mb-1">Expiry (days)</label>
-                <input type="number" name="download_expiry_days" class="w-full px-3 py-2 border rounded" value="30"
+                <input type="number" required name="download_expiry_days" class="w-full px-3 py-2 border rounded" value="30"
                     min="0">
             </div>
         </div>
 
         <div>
             <label class="block font-medium mb-1">Summary</label>
-            <input type="text" name="summary" class="w-full px-3 py-2 border rounded" placeholder="Short summary">
+            <input type="text" required name="summary" class="w-full px-3 py-2 border rounded" placeholder="Short summary">
         </div>
 
         <div>
             <label class="block font-medium mb-1">Upload File</label>
-            <input type="file" name="product_file" accept=".pdf,video/*,application/*" class="w-full">
+            <input type="file" required name="product_file" accept=".pdf,video/*,application/*" class="w-full">
             <p class="text-xs text-gray-500 mt-1">Allowed: PDF, MP4, ZIP etc. (Max: handle in backend)</p>
         </div>
 

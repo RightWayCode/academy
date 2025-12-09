@@ -3,13 +3,14 @@
     <div class="slides relative w-full h-full">
         <!-- slide 0 -->
         <article class="slide absolute inset-0 opacity-100 transition-opacity duration-700" aria-hidden="false">
-            <img src="<?=url("/assets/uploads/banner/banner1.jpg")?>" alt="DU SOL Admission"
+            <img src="<?= url("/assets/uploads/banner/banner1.jpg") ?>" alt="DU SOL Admission"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent flex items-center">
                 <div class="max-w-6xl mx-auto px-6 md:px-12">
                     <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight">Fast &
                         Trusted DU SOL Admissions</h1>
-                    <p class="mt-4 text-white/90 text-lg md:text-xl max-w-2xl">Ashish Tiwari Academy helps students complete DU
+                    <p class="mt-4 text-white/90 text-lg md:text-xl max-w-2xl">Ashish Tiwari Academy helps students
+                        complete DU
                         SOL admission, choose right subjects, and get study resources — all in one trusted place.</p>
                     <div class="mt-6 flex gap-3">
                         <a href="#contact"
@@ -25,7 +26,7 @@
 
         <!-- slide 1 -->
         <article class="slide absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden="true">
-            <img src="<?=url("/assets/uploads/banner/banner2.jpg")?>" alt="Expert Tutors"
+            <img src="<?= url("/assets/uploads/banner/banner2.jpg") ?>" alt="Expert Tutors"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/30 flex items-center">
                 <div class="max-w-6xl mx-auto px-6 md:px-12">
@@ -44,7 +45,7 @@
 
         <!-- slide 2 -->
         <article class="slide absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden="true">
-            <img src="<?=url("/assets/uploads/banner/banner3.webp")?>" alt="Study Materials"
+            <img src="<?= url("/assets/uploads/banner/banner3.webp") ?>" alt="Study Materials"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-l from-black/50 via-black/30 to-transparent flex items-center">
                 <div class="max-w-6xl mx-auto px-6 md:px-12">
@@ -76,56 +77,90 @@
     </div>
 </section>
 
-<!-- ABOUT / INTRO -->
-<section id="about" class="max-w-7xl mx-auto px-6 py-12">
-    <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div>
-            <h3 class="text-2xl md:text-3xl font-bold text-gray-800">About Ashish Tiwari Academy — Your DU SOL Partner</h3>
-            <p class="mt-4 text-gray-600 leading-relaxed text-justify">
-                Ashish Tiwari Academy, established in 2021, is a trusted education platform dedicated to helping DU, DU SOL,
-                and NCWEB students with accurate information, admissions guidance, structured study notes, and
-                exam-focused support. We provide complete assistance from enrolment to assignments, internal
-                assessments, and final exams, ensuring students never miss important updates or deadlines. Along with
-                delivering high-quality notes, we also offer regular classes and doubt sessions on our YouTube channel,
-                making learning simple, accessible, and result-oriented. Our mission is to empower every student with
-                the right guidance, clear subject understanding, and a confident path to academic success. </p>
+<!-- SERVICES -->
+<section id="courses" class="bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-6">
+        
+        <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+            DU SOL Courses
+        </h4>
 
-            <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
-                <li class="flex items-start gap-3">
-                    <span class="text-orange-600 font-bold">✓</span>
-                    <div>
-                        <div class="font-semibold">Fast Admissions</div>
-                        <div class="text-sm text-gray-500">Step-by-step help to complete DU SOL application and fee
-                            payments.</div>
-                    </div>
-                </li>
-                <li class="flex items-start gap-3">
-                    <span class="text-orange-600 font-bold">✓</span>
-                    <div>
-                        <div class="font-semibold">Exam-Ready Notes</div>
-                        <div class="text-sm text-gray-500">Concise notes & PYQs curated for quick revision.</div>
-                    </div>
-                </li>
-            </ul>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-            <div class="mt-6 flex gap-3">
-                <a href="#contact"
-                    class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-md font-semibold">Request
-                    Admission</a>
-                <a href="#services" class="bg-gray-100 hover:bg-gray-200 px-5 py-3 rounded-md font-medium">See
-                    Services</a>
-            </div>
-        </div>
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">BA Programme</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Explore DU SOL BA Programme syllabus, subjects, books, assignments and exam details.
+                </p>
+                <a href="<?= URL . '/du-sol/ba-programme' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View BA Programme →
+                </a>
+            </article>
 
-        <div class="rounded-xl overflow-hidden shadow-lg">
-            <img src="<?=url("/assets/uploads/about/about.jpg")?>" alt="Ashish Tiwari Academy"
-                class="w-full h-full object-cover">
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">BA Political Science Hons</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Explore DU SOL BA Political Science Hons syllabus, subjects, books, assignments and exam details.
+                </p>
+                <a href="<?= URL . '/du-sol/ba-political-science-hons' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View BA Political Science Hons →
+                </a>
+            </article>
+
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">B.Com</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Updated DU SOL B.Com course structure, study material, question papers and exam pattern.
+                </p>
+                <a href="<?= URL . '/du-sol/bcom-programme' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View B.Com →
+                </a>
+            </article>
+
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">B.Com (Hons.)</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Detailed curriculum, books, notes and previous year papers for B.Com (Hons.) students.
+                </p>
+                <a href="<?= URL . '/du-sol/bcom-hons' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View B.Com (Hons.) →
+                </a>
+            </article>
+
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">BA English (Hons.)</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Complete guide on BA English (Hons.) syllabus, important texts, notes and exam resources.
+                </p>
+                <a href="<?= URL . '/du-sol/ba-english-hons' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View BA English (Hons.) →
+                </a>
+            </article>
+
+            <!-- <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">MA Programme</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Check DU SOL MA course details, specializations, books, notes and exam schedule.
+                </p>
+                <a href="<?= URL . '/du-sol/ma' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View MA Programme →
+                </a>
+            </article>
+
+            <article class="bg-white rounded-xl p-6 shadow hover:shadow-xl transition">
+                <h5 class="font-semibold text-lg">M.Com</h5>
+                <p class="mt-2 text-sm text-gray-600">
+                    Updated M.Com syllabus, study materials, solved questions and preparation support.
+                </p>
+                <a href="<?= URL . '/du-sol/mcom' ?>" class="mt-4 inline-block text-orange-600 font-semibold">
+                    View M.Com →
+                </a>
+            </article> -->
+
         </div>
     </div>
 </section>
 
-<!-- SERVICES -->
-<?= component("service") ?>
 
 <!-- CTA BANNER: admission help (similar to earlier) -->
 <section class="bg-[#004568] py-6">
@@ -141,55 +176,6 @@
     </div>
 </section>
 
-<!-- TESTIMONIALS (carousel) -->
-<section id="testimonials" class="max-w-7xl mx-auto px-6 py-12">
-    <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">Student Success Stories</h4>
-
-    <div class="relative">
-        <div class="testi-slides overflow-hidden rounded-xl">
-            <div class="testi-slide p-8 bg-white shadow-lg rounded-xl">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/100?img=5" alt="student" class="w-14 h-14 rounded-full border">
-                    <div>
-                        <div class="font-semibold">Neha Gupta</div>
-                        <div class="text-sm text-gray-500">BA (DU SOL)</div>
-                    </div>
-                </div>
-                <p class="mt-4 text-gray-600">"Ashish Tiwari Academy helped me complete admission and guided me through
-                    assignments — I scored 78% in the final papers. Highly recommended!"</p>
-            </div>
-            <div class="testi-slide hidden p-8 bg-white shadow-lg rounded-xl">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/100?img=11" alt="student" class="w-14 h-14 rounded-full border">
-                    <div>
-                        <div class="font-semibold">Ramesh Kumar</div>
-                        <div class="text-sm text-gray-500">BCom (DU SOL)</div>
-                    </div>
-                </div>
-                <p class="mt-4 text-gray-600">"Great notes and solved PYQs — the revision pack saved me days of study.
-                    Excellent doubt sessions."</p>
-            </div>
-            <div class="testi-slide hidden p-8 bg-white shadow-lg rounded-xl">
-                <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/100?img=18" alt="student" class="w-14 h-14 rounded-full border">
-                    <div>
-                        <div class="font-semibold">Priya Singh</div>
-                        <div class="text-sm text-gray-500">BEd (DU SOL)</div>
-                    </div>
-                </div>
-                <p class="mt-4 text-gray-600">"Assignments were accurate and well-referenced. I got full marks for my
-                    project. Thank you!"</p>
-            </div>
-        </div>
-
-        <!-- controls -->
-        <div class="flex gap-3 justify-center mt-6">
-            <button id="testiPrev" class="px-3 py-2 rounded-md border">Prev</button>
-            <button id="testiNext" class="px-3 py-2 rounded-md border">Next</button>
-        </div>
-    </div>
-</section>
-
 <!-- FAQ -->
 <section id="faq" class="max-w-7xl mx-auto px-6 py-12">
     <h4 class="text-2xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h4>
@@ -198,7 +184,8 @@
         <!-- faq item -->
         <details class="bg-white p-5 rounded-xl shadow">
             <summary class="font-semibold cursor-pointer">How do I apply for DU SOL admission?</summary>
-            <div class="mt-3 text-gray-600">Contact Ashish Tiwari Academy with your details, we will guide you through the DU
+            <div class="mt-3 text-gray-600">Contact Ashish Tiwari Academy with your details, we will guide you through
+                the DU
                 SOL online application, documents required and fee payment.</div>
         </details>
 

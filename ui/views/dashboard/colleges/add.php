@@ -13,6 +13,14 @@
                    placeholder="Enter college name">
         </div>
 
+        <!-- Slug -->
+        <div>
+            <label class="block mb-1 font-medium">Slug</label>
+            <input type="text" name="slug"
+                   class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                   placeholder="auto-generated or custom slug">
+        </div>
+
         <!-- Address -->
         <div>
             <label class="block mb-1 font-medium">Address</label>
