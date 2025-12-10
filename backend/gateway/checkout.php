@@ -1,4 +1,5 @@
 <?php
+// hole($_POST);
 require('vendor/autoload.php');
 use Razorpay\Api\Api;
 
@@ -11,7 +12,15 @@ $api = new Api($keyId, $keySecret);
 $name = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
-$amount = $_POST['amount'];
+$remarks = $_POST['remarks'];
+
+$amount = $_POST['total_amount'] ?? 0;
+$subtotal = $_POST['subtotal'] ?? 0;
+$processing_fee = $_POST['processing_fee'] ?? 0;
+
+$product_ids = $_POST['product_ids'];
+
+require __DIR__ . "/group/orders.php";
 
 $orderData = [
     "receipt" => "ORD_" . time(),
@@ -21,7 +30,14 @@ $orderData = [
 
 $order = $api->order->create($orderData);
 $order_id = $order['id'];
-
+// payments
+// $payment_id = insertData("payments", [
+//     "order_id" => $od_id,
+//     "payment_order_id" => $order_id,
+//     "amount" => $amount,
+//     "status" => 0,
+// ]);
+// hole($payment_id);
 ?>
 <!DOCTYPE html>
 <html>

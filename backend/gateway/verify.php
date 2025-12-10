@@ -1,13 +1,13 @@
 <?php
 require('vendor/autoload.php');
-
+hole($_GET);
 use Razorpay\Api\Api;
 
 $keyId = "rzp_test_RnzQv4040zjql5";
 $keySecret = "9RGLldTAdbILjIjdRGnQ33NA";
 
 $api = new Api($keyId, $keySecret);
-
+// pay_Rpl4eGPs1Y2oPJ
 try {
 
     $attributes = [
@@ -19,7 +19,7 @@ try {
     $api->utility->verifyPaymentSignature($attributes);
 
     // Signature Verified → SUCCESS
-    location("/success?payment_id=" . $_GET['payment_id']);
+    location("/checkout/success?payment_id=" . $_GET['payment_id']);
     exit;
 
 } catch (Exception $e) {

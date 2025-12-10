@@ -85,7 +85,7 @@
                     Consult Now
                 </a> -->
 
-                <a href="cart.php" class="relative inline-block">
+                <a href="<?= url("/cart") ?>" class="relative inline-block">
 
                     <!-- Cart Icon (Font Awesome Latest) -->
                     <i class="fa-solid fa-bag-shopping text-3xl text-gray-800"></i>

@@ -115,7 +115,7 @@ foreach ($cartProducts as $p) {
                 <!-- Additional summery -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Summery (Optional)</label>
-                    <textarea name="summery" rows="3"
+                    <textarea name="remarks" rows="3"
                         class="w-full border rounded px-3 py-2 text-sm focus:ring focus:border-blue-400"></textarea>
                 </div>
 

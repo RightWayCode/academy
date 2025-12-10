@@ -35,8 +35,8 @@ get("/blogs","blogs");
 get("/blog/{slug}","pages/blog");
 
 layout_end();
-
-get("/checkout/success","/gateway/checkout/success");
-get("/checkout/failed","/gateway/checkout/failed");
-post("/checkout/verify","/gateway/checkout/verify");
-post("/checkout/process","/gateway/checkout/process");
+// hole("page");
+get("/checkout/verify","/gateway/verify");
+post("/checkout/process","/gateway/checkout");
+get("/checkout/success","/gateway/success");
+get("/checkout/failed","/gateway/failed");
